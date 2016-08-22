@@ -1,0 +1,42 @@
+1. {node_source} --> {source}
+match (c:publication) 
+where c.source is null with c limit 10000 
+set c.source = c.node_source 
+remove c.node_source;
+2. {authors} --> {authors_list}
+match (c:publication) 
+where c.authors is not null with c limit 10000 
+set c.authors_list = c.authors 
+remove c.authors;
+3. create {url}
+match (c:publication) 
+where c.url is null with c limit 10000 
+set c.url = c. key;
+4. {published_date} --> {publication} // Just pick the year component of the published_date value
+match (c:publication) 
+where c.published_date is not null with c limit 10000 
+set c.publication = substring(c.published_date, 0, 4) 
+remove c.published_date;
+5. create {last_update} // default value=11 April 2016: 21:47:57
+match (c:publication) 
+where c.last_update is null with c limit 10000 
+set c.last_update  = 'April 2016: 21:47:57';
+
+6. {local_id, inspire_id, doi} --> {local_id} // Use the properties in the order of priority: local_id, inspire_id, doi
+
+step 1: //find nodes which have inspire_id but have no local_id, set local_id = inspire_id then remove inspire_id
+match (c:publication)
+where c.inspire_id is not null and c.local_id is null
+set c.local_id = c.inspire_id
+remove c.inspire_id;
+
+step 2: //find nodes which have doi but have no local_id, set local_id = doi
+match (c:publication)
+where c.doi is not null and c.local_id is null
+set c.local_id = c.doi;
+
+
+
+
+
+
