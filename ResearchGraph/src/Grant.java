@@ -15,7 +15,6 @@ import org.neo4j.logging.LogProvider;
  * My site: http://ukiyoe.in
  */
 
-
 public class Grant {
 
     public static void main(String[] args) {
@@ -32,31 +31,19 @@ public class Grant {
 
         * */
 
-        String Databese_Path = "../neo4j-nexus/data/graph.db";
+        String Databese_Path = "C:\\neo4j-nexus\\neo4j-nexus\\data\\graph.db";
 
         GraphDatabaseService graphDb = graphDbFactory.newEmbeddedDatabase(Databese_Path);
 
         ExecutionEngine execEngine = new ExecutionEngine(graphDb, new LogProvider() {
-
-            @Override
-
             public Log getLog(Class aClass) {
-
                 return null;
-
             }
-
-            @Override
 
             public Log getLog(String s) {
-
                 return null;
-
             }
-
         });
-
-
         /**
          * {ands_group} --> {funder}
          */
@@ -69,7 +56,7 @@ public class Grant {
 
                 "remove c.ands_group";
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 10; i++) {
             ExecutionResult execResult = execEngine.execute(Cypher_Query);
             String results = execResult.dumpToString();
             System.out.println(results);
@@ -77,41 +64,50 @@ public class Grant {
 
         /**
          * {nhmrc_id,arc_id, riginal_key}-->{local_id}
+         * Use the properties in the order of priority:  nhmrc_id (first) ,arc_id (second) , riginal_key (last)
          */
 
         Cypher_Query = "match (c:grant)\n" +
 
-                "where c.nhmrc_id is not null and c.local_id is null and riginal_key is null\n" +
+                "where c.nhmrc_id is not null\n" +
 
-                "set c.local_id = c.nhmric_id\n" +
+                "set c.local_id = c.nhmrc_id\n" +
 
-                "remove c.nhmric_id";
+                "remove c.nhmrc_id\n";
 
-        ExecutionResult execResult = execEngine.execute(Cypher_Query);
-        String results = execResult.dumpToString();
-        System.out.println(results);
+        for (int i = 0; i < 1; i++) {
+            ExecutionResult execResult = execEngine.execute(Cypher_Query);
+            String results = execResult.dumpToString();
+            System.out.println(results);
+        }
 
-
-        Cypher_Query = "match (c:grant)\n" +
-
-                "where c.arc_id is not null and c.nhmrc_id is null and c.riginal_key is null\n" +
-
-                "set c.local_id = c.arc_id";
-
-        ExecutionResult execResult = execEngine.execute(Cypher_Query);
-        String results = execResult.dumpToString();
-        System.out.println(results);
 
         Cypher_Query = "match (c:grant)\n" +
 
-                "where c.riginal_key is not null and c.nhmrc_id is null and c.arc_id is null\n" +
+                "where c.nhmrc_id is null and c.arc_id is not null\n" +
 
-                "set c.local_id = c.riginal_key";
+                "set c.local_id = c.arc_id\n" +
 
-        ExecutionResult execResult = execEngine.execute(Cypher_Query);
-        String results = execResult.dumpToString();
-        System.out.println(results);
+                "remove c.arc_id";
 
+        for (int i = 0; i < 1; i++) {
+            ExecutionResult execResult = execEngine.execute(Cypher_Query);
+            String results = execResult.dumpToString();
+            System.out.println(results);
+        }
+
+        Cypher_Query = "match (c:grant)\n" +
+
+                "where c.nhmrc_id is null and c.arc_id is null and c.riginal_key is not null\n" +
+
+                "set c.local_id = c.riginal_key\n" +
+
+                "remove c.riginal_key";
+
+        for (int i = 0; i < 1; i++) {
+            ExecutionResult execResult = execEngine.execute(Cypher_Query);
+            String results = execResult.dumpToString();
+            System.out.println(results);
+        }
     }
-
 }
