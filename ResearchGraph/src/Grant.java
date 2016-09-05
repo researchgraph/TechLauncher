@@ -98,11 +98,11 @@ public class Grant {
 
         Cypher_Query = "match (c:grant)\n" +
 
-                "where c.nhmrc_id is null and c.arc_id is null and c.riginal_key is not null\n" +
+                "where c.nhmrc_id is null and c.arc_id is null and c.original_key is not null\n" +
 
-                "set c.local_id = c.riginal_key\n" +
+                "set c.local_id = c.original_key\n" +
 
-                "remove c.riginal_key";
+                "remove c.original_key";
 
         for (int i = 0; i < 1; i++) {
             ExecutionResult execResult = execEngine.execute(Cypher_Query);
