@@ -63,7 +63,7 @@ public class Researcher {
 
         Cypher_Query = "match (c:researcher) \n" +
 
-                "where c.full_name is null and title is not null \n" +
+                "where c.full_name is null and c.title is not null \n" +
 
                 "set c.full_name = c.title \n" +
 
@@ -149,7 +149,7 @@ public class Researcher {
 
         Cypher_Query = "match (c:researcher)\n" +
 
-                "where c.local_id is null and and c.original_key is null and c.orcid is not null\n" +
+                "where c.local_id is null and c.original_key is null and c.orcid is not null\n" +
 
                 "set c.local_id = c.orcid\n" +
 
