@@ -1,0 +1,10 @@
+In Kun's MacBook Pro
+Processor: 2.7 GHz Intel Core i5
+Memory: 8 GB 1867 MHz DDR3
+
+Run:
+Publication.java        needs   1h and 59min
+Publication2.java       needs   1h and 59min
+Grant.java              needs   less than 30s
+Researcher.java         needs   about 1min and 30s
+Dataset.java            needs   less than 1min

@@ -95,6 +95,7 @@ public class Publication {
         }
 
 
+        //Have corrected the mistake
         /**
          * 4. {published_date} --> {publication} // Just pick the year component of the published_date value
          * 4069780 nodes to change
@@ -106,7 +107,7 @@ public class Publication {
 
         Cypher_Query = "match (c:publication) \n" +
                 "where c.published_date is not null with c limit 10000 \n" +
-                "set c.publication = substring(c.published_date, 0, 4) \n" +
+                "set c.publication_year = substring(c.published_date, 0, 4) \n" +
                 "remove c.published_date";
 
         for (int i = 0; i < 407; i++) {
@@ -177,9 +178,34 @@ public class Publication {
             System.out.println(results);
         }
 
+        //This part is missing in the first converting
 
-//        ExecutionResult execResult = execEngine.execute("MATCH (n:publication) RETURN n LIMIT 25");
-//        String results = execResult.dumpToString();
-//        System.out.println(results);
+        /**
+         * *7. {ands_group} --> {group}
+         * 17872 nodes need to change
+         * Cypher Query:
+         * match (p:publication)
+         * where HAS(p.ands_group)
+         * return count(p.key)
+         */
+
+
+        Cypher_Query = "match (c:publication)\n" +
+                "where c.ands_group is not null with c limit 10000\n" +
+                "set c.group = c.ands_group\n" +
+                "remove c.ands_group";
+
+        for (int i = 0; i < 3; i++) {
+            ExecutionResult execResult = execEngine.execute(Cypher_Query);
+            String results = execResult.dumpToString();
+            System.out.println(results);
+            if (results.contains("No data returned, and nothing was changed.")) {
+                break;
+            }
+        }
+
+
+
+
     }
 }

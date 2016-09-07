@@ -7,6 +7,7 @@ import org.neo4j.logging.LogProvider;
 
 /**
  * Created by wangkun on 7/09/2016.
+ * this class is used for fixing bugs in Publication
  */
 public class Publication2 {
 
@@ -33,6 +34,7 @@ public class Publication2 {
 
 
 
+
         /**
          * 1. {ands_group} --> {group}
          * 17872 nodes need to change
@@ -52,22 +54,28 @@ public class Publication2 {
             ExecutionResult execResult = execEngine.execute(Cypher_Query);
             String results = execResult.dumpToString();
             System.out.println(results);
+            if (results.contains("No data returned, and nothing was changed.")) {
+                break;
+            }
         }
 
 
         /**
-         * 2. {publication} --> {published_date}
+         * 2. {publication} --> {p.publication_year}
          *
          */
 
 
 
-        Cypher_Query = "match (p:publication) where HAS(p.publication) with p limit 10000 set p.published_date = p.publication remove p.publication";
+        Cypher_Query = "match (p:publication) where HAS(p.publication) with p limit 10000 set p.publication_year = p.publication remove p.publication";
 
-        for (int i = 0; i < 407; i++) {
+        for (int i = 0; i < 411; i++) {
             ExecutionResult execResult = execEngine.execute(Cypher_Query);
             String results = execResult.dumpToString();
             System.out.println(results);
+            if (results.contains("No data returned, and nothing was changed.")) {
+                break;
+            }
         }
 
     }
