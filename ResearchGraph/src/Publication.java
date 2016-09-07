@@ -9,6 +9,7 @@ import org.neo4j.logging.LogProvider;
  * Created by wangkun on 31/08/2016.
  */
 public class Publication {
+
     public static void main(String[] args) {
 
         GraphDatabaseFactory graphDbFactory = new GraphDatabaseFactory();

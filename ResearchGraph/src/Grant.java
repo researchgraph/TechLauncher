@@ -31,7 +31,7 @@ public class Grant {
 
         * */
 
-        String Databese_Path = "C:\\neo4j-nexus\\neo4j-nexus\\data\\graph.db";
+        String Databese_Path = "/Users/wangkun/Desktop/ResearchGraph/neo4j-nexus/data/graph.db";
 
         GraphDatabaseService graphDb = graphDbFactory.newEmbeddedDatabase(Databese_Path);
 
