@@ -1,0 +1,17 @@
+In Kun's MacBook Pro
+Processor: 2.7 GHz Intel Core i5
+Memory: 8 GB 1867 MHz DDR3
+
+Run:
+Publication.java        needs   1h and 59min
+Publication2.java       needs   1h and 59min
+Grant.java              needs   less than 30s
+Researcher.java         needs   about 1min
+Dataset.java            needs   less than 1min
+
+
+I set the program run 10000 queries at one time, it may not be the perfect number, but I tried 100 queries at one time, it became much slower. I guess it is because it costs lots of time to call an ExecutionEngine
+
+But if I don't set a limitation, my computer becomes stuck. The CUP runs over 340%
+
+However, it works well in Andy's computer. But he said it spent more than 10 min to run Researcher.java, but when I add a limitation, I spent only 1 min. So I suggest adding a limitation is a good idea
