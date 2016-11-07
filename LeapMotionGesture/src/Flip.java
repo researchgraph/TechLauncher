@@ -19,11 +19,6 @@ class FlipListener extends Listener{
 
     public void onConnect(Controller controller) {
         System.out.println("Ready to detect Flip");
-        //Initialize the Circle gesture
-//        controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
-//        controller.enableGesture(Gesture.Type.TYPE_SWIPE);
-//        controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
-//        controller.enableGesture(Gesture.Type.TYPE_KEY_TAP);
     }
 
     public void onDisconnect(Controller controller) {
