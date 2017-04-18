@@ -2,7 +2,7 @@ This code is developed as part of the TechLauncher project for exporting Researc
 
 ## How to Run the Shell Script:
 
-1. Download and install [Neo4j](https://neo4j.com/download/)
+1. Download and install [Neo4j](https://neo4j.com/download/);
 
 2. cd into Neo4j folder and replace the folder data with NCI data;
 
