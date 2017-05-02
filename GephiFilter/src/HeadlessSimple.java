@@ -106,11 +106,29 @@ public class HeadlessSimple {
         model.getProperties().putValue(PreviewProperty.EDGE_THICKNESS, new Float(0.1f));
         model.getProperties().putValue(PreviewProperty.NODE_LABEL_FONT, model.getProperties().getFontValue(PreviewProperty.NODE_LABEL_FONT).deriveFont(8));
 
-        //Export file
+        /*Export PDF File
         ExportController ec = Lookup.getDefault().lookup(ExportController.class);
         try {
             //Define Export file name
             ec.exportFile(new File("headless_simple.pdf"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return;
+        }*/
+        
+        /* Export graphML String (Uncomment it)
+        Exporter exporterGraphML = ec.getExporter("graphml");
+        exporterGraphML.setWorkspace(workspace);
+        StringWriter stringWriter = new StringWriter();
+        ec.exportWriter(stringWriter, (CharacterExporter) exporterGraphML);
+        System.out.println(stringWriter.toString());*/
+
+        //Export .gexf file which can be imported into Gephi directly
+        GraphExporter exporter = (GraphExporter) ec.getExporter("gexf");     //Get GEXF exporter
+        exporter.setExportVisible(true);  //Only exports the visible (filtered) graph
+        exporter.setWorkspace(workspace);
+        try {
+            ec.exportFile(new File("test2.gexf"), exporter);
         } catch (IOException ex) {
             ex.printStackTrace();
             return;
